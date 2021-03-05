@@ -114,7 +114,7 @@ class CabCustomerController extends Controller
             $result = cab_customer::findOrFail($id)->update($req);
             $data['code'] = 200;
             $data['success'] = true;
-            $data['message'] = "berhasil fetch data";
+            $data['message'] = "berhasil update data";
             $data['result'] = $result;
         } catch (\Throwable $th) {
             $data['code'] = 500;
