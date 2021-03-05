@@ -20,7 +20,6 @@ class CreateVoucherMerchantsTable extends Migration
             $table->string("voucher_desc",200);
             $table->date("valid_until");
             $table->integer("nominal");
-
             $table->timestamps();
         });
     }
