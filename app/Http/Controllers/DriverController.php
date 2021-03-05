@@ -54,6 +54,7 @@ class DriverController extends Controller
                     "phone"=>$request->phone,
                     "vhc_brand"=>$request->vhc_brand,
                     "vhc_model"=>$request->vhc_model,
+                    "vhc_plat"=>$request->vhc_plat,
                     "picture"=>$request->picture,
                     "document"=>$request->document,
                     ];  
@@ -191,7 +192,7 @@ class DriverController extends Controller
     public function destroy($id)
     {
         try {
-            $result = driver::findOrFail($id)->get();
+            $result = driver::findOrFail($id)->delete();
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil hapus data";

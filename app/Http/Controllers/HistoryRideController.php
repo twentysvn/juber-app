@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\merchant_layanan;
+use App\Models\history_ride;
 use Illuminate\Http\Request;
 
-class MerchantLayananController extends Controller
+class HistoryRideController extends Controller
 {
     public $data;
     /**
@@ -16,7 +16,7 @@ class MerchantLayananController extends Controller
     public function index()
     {
         try {
-            $result = merchant_layanan::all();
+            $result = history_ride::all();
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil fetch data";
@@ -48,16 +48,20 @@ class MerchantLayananController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         try {
-            $req = [
-                "nama"=>$request->nama,
-                "alamat"=>$request->alamat,
-                "rating"=>$request->rating,
-                "long"=>$request->long,
-                "lat"=>$request->lat,
-                "idrs"=>$request->idrs
-            ];
-            $result = merchant_layanan::create($req);
+            $req = ["idrs"=>$request->idrs,
+                    "driver_id"=>$request->driver_id,
+                    "cost"=>$request->cost,
+                    "payment_method"=>$request->payment_method,
+                    "ori_address"=>$request->ori_address,
+                    "ori_lat"=>$request->ori_lat,
+                    "ori_long"=>$request->ori_long,
+                    "des_address"=>$request->des_address,
+                    "des_lat"=>$request->des_lat,
+                    "des_long"=>$request->des_long,
+                    ];  
+            $result = history_ride::create($req);
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil tambah data";
@@ -74,14 +78,30 @@ class MerchantLayananController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\merchant_layanan  $merchant_layanan
+     * @param  \App\Models\history_ride  $history_ride
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         try {
-            // $req = ["nama"=>$request->nama,"alamat"=>$request->alamat,"rating"=>$request->rating,"long"=>$request->long,"lat"=>$request->lat];
-            $result = merchant_layanan::findOrFail($id);
+            $result = history_ride::findOrFail($id);
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil fetch data";
+            $data['data'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['data'] = [];
+        }
+        return $data;
+    }
+
+    public function getByIdrs($id)
+    {
+        try {
+            $result = history_ride::where('idrs',$id)->get();
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil fetch data";
@@ -98,21 +118,39 @@ class MerchantLayananController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\merchant_layanan  $merchant_layanan
+     * @param  \App\Models\history_ride  $history_ride
      * @return \Illuminate\Http\Response
      */
-    public function edit(merchant_layanan $merchant_layanan)
+    public function edit(history_ride $history_ride)
     {
         //
     }
-    public function getByIdrs($idrs)
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\history_ride  $history_ride
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
         try {
-            // $req = ["nama"=>$request->nama,"phone"=>$request->phone,"idrs"=>$request->idrs,"picture"=>$request->picture,"token"=>$request->token];
-            $result = merchant_layanan::where('idrs',$idrs)->get();
+            $req = ["idrs"=>$request->idrs,
+                    "driver_id"=>$request->driver_id,
+                    "cost"=>$request->cost,
+                    "payment_method"=>$request->payment_method,
+                    "ori_address"=>$request->ori_address,
+                    "ori_lat"=>$request->ori_lat,
+                    "ori_long"=>$request->ori_long,
+                    "des_address"=>$request->des_address,
+                    "des_lat"=>$request->des_lat,
+                    "des_long"=>$request->des_long,
+            ];  
+            $result = history_ride::findOrFail($id)->create($req);
             $data['code'] = 200;
             $data['success'] = true;
-            $data['message'] = "berhasil fetch data";
+            $data['message'] = "berhasil update data";
             $data['data'] = $result;
         } catch (\Throwable $th) {
             $data['code'] = 500;
@@ -124,44 +162,18 @@ class MerchantLayananController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\merchant_layanan  $merchant_layanan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        try {
-          $req = ["nama"=>$request->nama,"alamat"=>$request->alamat,"rating"=>$request->rating,"long"=>$request->long,"lat"=>$request->lat,"idrs"=>$request->idrs];
-          $result = merchant_layanan::findOrFail($id)->update($req);
-          $data['code'] = 200;
-          $data['success'] = true;
-          $data['message'] = "berhasil update data";
-          $data['data'] = $result;
-      } catch (\Throwable $th) {
-          $data['code'] = 500;
-          $data['success'] = false;
-          $data['message'] = $th->getMessage();
-          $data['data'] = [];
-      }
-      return $data;
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\merchant_layanan  $merchant_layanan
+     * @param  \App\Models\history_ride  $history_ride
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         try {
-            // $req = ["nama"=>$request->nama,"alamat"=>$request->alamat,"rating"=>$request->rating,"long"=>$request->long,"lat"=>$request->lat];
-            $result = merchant_layanan::findOrFail($id)->delete();
+            $result = history_ride::findOrFail($id)->delete();
             $data['code'] = 200;
             $data['success'] = true;
-            $data['message'] = "berhasil update data";
+            $data['message'] = "berhasil hapus data";
             $data['data'] = $result;
         } catch (\Throwable $th) {
             $data['code'] = 500;

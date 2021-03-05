@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class merchant_layanan extends Model
 {
-    protected $table = 'cab_customers';
+    protected $table = 'merchant_layanans';
     protected $guarded = [];
 }

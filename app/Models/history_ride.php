@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class driver extends Model
+class history_ride extends Model
 {
-    protected $table = 'drivers_profile';
+    protected $table = 'history_ride';
     protected $guarded = [];
 }
