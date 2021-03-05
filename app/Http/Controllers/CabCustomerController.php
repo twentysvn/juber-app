@@ -20,12 +20,12 @@ class CabCustomerController extends Controller
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil fetch cab_customer";
-            $data['result'] = $result;
+            $data['data'] = $result;
         } catch (\Throwable $th) {
             $data['code'] = 500;
             $data['success'] = false;
             $data['message'] = $th->getMessage();
-            $data['result'] = [];
+            $data['data'] = [];
         }
         return $data;
     }
@@ -55,12 +55,12 @@ class CabCustomerController extends Controller
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil tambah data";
-            $data['result'] = $result;
+            $data['data'] = $result;
         } catch (\Throwable $th) {
             $data['code'] = 500;
             $data['success'] = false;
             $data['message'] = $th->getMessage();
-            $data['result'] = [];
+            $data['data'] = [];
         }
         return $data;
     }
@@ -79,12 +79,29 @@ class CabCustomerController extends Controller
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil fetch data";
-            $data['result'] = $result;
+            $data['data'] = $result;
         } catch (\Throwable $th) {
             $data['code'] = 500;
             $data['success'] = false;
             $data['message'] = $th->getMessage();
-            $data['result'] = [];
+            $data['data'] = [];
+        }
+        return $data;
+    }
+    public function getByIdrs($idrs)
+    {
+        try {
+            // $req = ["nama"=>$request->nama,"phone"=>$request->phone,"idrs"=>$request->idrs,"picture"=>$request->picture,"token"=>$request->token];
+            $result = cab_customer::where('idrs',$idrs)->get();
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil fetch data";
+            $data['data'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['data'] = [];
         }
         return $data;
     }
@@ -116,12 +133,12 @@ class CabCustomerController extends Controller
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil update data";
-            $data['result'] = $result;
+            $data['data'] = $result;
         } catch (\Throwable $th) {
             $data['code'] = 500;
             $data['success'] = false;
             $data['message'] = $th->getMessage();
-            $data['result'] = [];
+            $data['data'] = [];
         }
         return $data;
     }
@@ -139,13 +156,13 @@ class CabCustomerController extends Controller
             $result = cab_customer::findOrFail($id)->delete();
             $data['code'] = 200;
             $data['success'] = true;
-            $data['message'] = "berhasil fetch data";
-            $data['result'] = $result;
+            $data['message'] = "berhasil hapus data";
+            $data['data'] = $result;
         } catch (\Throwable $th) {
             $data['code'] = 500;
             $data['success'] = false;
             $data['message'] = $th->getMessage();
-            $data['result'] = [];
+            $data['data'] = [];
         }
         return $data;
     }
