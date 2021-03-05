@@ -16,10 +16,18 @@ class MerchantLayananController extends Controller
     public function index()
     {
         try {
-            return "asdasdda";
+            $result = merchant_layanan::all();
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil fetch data";
+            $data['data'] = $result;
         } catch (\Throwable $th) {
-            //throw $th;
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['data'] = [];
         }
+        return $data;
     }
 
     /**
@@ -40,7 +48,20 @@ class MerchantLayananController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $req = ["nama"=>$request->nama,"alamat"=>$request->alamat,"rating"=>$request->rating,"long"=>$request->long,"lat"=>$request->lat,"idrs"=>$request->idrs];
+            $result = merchant_layanan::create($req);
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil tambah data";
+            $data['data'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['data'] = [];
+        }
+        return $data;
     }
 
     /**
@@ -49,9 +70,22 @@ class MerchantLayananController extends Controller
      * @param  \App\Models\merchant_layanan  $merchant_layanan
      * @return \Illuminate\Http\Response
      */
-    public function show(merchant_layanan $merchant_layanan)
+    public function show($id)
     {
-        //
+        try {
+            // $req = ["nama"=>$request->nama,"alamat"=>$request->alamat,"rating"=>$request->rating,"long"=>$request->long,"lat"=>$request->lat];
+            $result = merchant_layanan::findOrFail($id);
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil fetch data";
+            $data['data'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['data'] = [];
+        }
+        return $data;
     }
 
     /**
@@ -64,6 +98,23 @@ class MerchantLayananController extends Controller
     {
         //
     }
+    public function getByIdrs($idrs)
+    {
+        try {
+            // $req = ["nama"=>$request->nama,"phone"=>$request->phone,"idrs"=>$request->idrs,"picture"=>$request->picture,"token"=>$request->token];
+            $result = merchant_layanan::where('idrs',$idrs)->get();
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil fetch data";
+            $data['data'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['data'] = [];
+        }
+        return $data;
+    }
 
     /**
      * Update the specified resource in storage.
@@ -72,9 +123,22 @@ class MerchantLayananController extends Controller
      * @param  \App\Models\merchant_layanan  $merchant_layanan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, merchant_layanan $merchant_layanan)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+          $req = ["nama"=>$request->nama,"alamat"=>$request->alamat,"rating"=>$request->rating,"long"=>$request->long,"lat"=>$request->lat,"idrs"=>$request->idrs];
+          $result = merchant_layanan::findOrFail($id)->update($req);
+          $data['code'] = 200;
+          $data['success'] = true;
+          $data['message'] = "berhasil update data";
+          $data['data'] = $result;
+      } catch (\Throwable $th) {
+          $data['code'] = 500;
+          $data['success'] = false;
+          $data['message'] = $th->getMessage();
+          $data['data'] = [];
+      }
+      return $data;
     }
 
     /**
@@ -83,8 +147,21 @@ class MerchantLayananController extends Controller
      * @param  \App\Models\merchant_layanan  $merchant_layanan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(merchant_layanan $merchant_layanan)
+    public function destroy($id)
     {
-        //
+        try {
+            // $req = ["nama"=>$request->nama,"alamat"=>$request->alamat,"rating"=>$request->rating,"long"=>$request->long,"lat"=>$request->lat];
+            $result = merchant_layanan::findOrFail($id)->delete();
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil update data";
+            $data['data'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['data'] = [];
+        }
+        return $data;
     }
 }

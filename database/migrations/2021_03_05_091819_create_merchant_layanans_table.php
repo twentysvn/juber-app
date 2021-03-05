@@ -17,6 +17,7 @@ class CreateMerchantLayanansTable extends Migration
             $table->id();
             $table->string("nama", 200);
             $table->string("alamat", 255);
+            $table->string("idrs", 7)->unique();
             $table->integer("rating");
             $table->string("long", 200);
             $table->string("lat", 200);
