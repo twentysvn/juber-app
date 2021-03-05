@@ -21,8 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('cab_user',[CabCustomerController::class, 'index']);
 Route::get('cab_user/{id}',[CabCustomerController::class, 'show']);
+Route::get('cab_user/idrs/{idrs}',[CabCustomerController::class, 'getByIdrs']);
 Route::post('cab_user',[CabCustomerController::class, 'store']);
 Route::put('cab_user/{id}',[CabCustomerController::class, 'update']);
-Route::delete('cab_usert/{id}',[CabCustomerController::class, 'destroy']);
+Route::delete('cab_user/{id}',[CabCustomerController::class, 'destroy']);
 
 Route::post('upload',[uploadController::class, 'store']);

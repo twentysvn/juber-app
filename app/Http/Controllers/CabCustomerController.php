@@ -88,6 +88,23 @@ class CabCustomerController extends Controller
         }
         return $data;
     }
+    public function getByIdrs($idrs)
+    {
+        try {
+            // $req = ["nama"=>$request->nama,"phone"=>$request->phone,"idrs"=>$request->idrs,"picture"=>$request->picture,"token"=>$request->token];
+            $result = cab_customer::where('idrs',$idrs)->get();
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil fetch data";
+            $data['result'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['result'] = [];
+        }
+        return $data;
+    }
 
     /**
      * Show the form for editing the specified resource.
