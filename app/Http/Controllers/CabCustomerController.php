@@ -71,9 +71,22 @@ class CabCustomerController extends Controller
      * @param  \App\Models\cab_customer  $cab_customer
      * @return \Illuminate\Http\Response
      */
-    public function show(cab_customer $cab_customer)
+    public function show($id)
     {
-        //
+        try {
+            // $req = ["nama"=>$request->nama,"phone"=>$request->phone,"idrs"=>$request->idrs,"picture"=>$request->picture,"token"=>$request->token];
+            $result = cab_customer::findOrFail($id);
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil fetch data";
+            $data['result'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['result'] = [];
+        }
+        return $data;
     }
 
     /**
@@ -94,9 +107,22 @@ class CabCustomerController extends Controller
      * @param  \App\Models\cab_customer  $cab_customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, cab_customer $cab_customer)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $req = ["nama"=>$request->nama,"phone"=>$request->phone,"idrs"=>$request->idrs,"picture"=>$request->picture,"token"=>$request->token];
+            $result = cab_customer::findOrFail($id)->update($req);
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil fetch data";
+            $data['result'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['result'] = [];
+        }
+        return $data;
     }
 
     /**
@@ -105,8 +131,21 @@ class CabCustomerController extends Controller
      * @param  \App\Models\cab_customer  $cab_customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(cab_customer $cab_customer)
+    public function destroy($id)
     {
-        //
+        try {
+            // $req = ["nama"=>$request->nama,"phone"=>$request->phone,"idrs"=>$request->idrs,"picture"=>$request->picture,"token"=>$request->token];
+            $result = cab_customer::findOrFail($id)->delete();
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil fetch data";
+            $data['result'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['result'] = [];
+        }
+        return $data;
     }
 }

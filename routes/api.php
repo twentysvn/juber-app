@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('cab_user',[CabCustomerController::class, 'index']);
-// Route::get('ref_cat/{id}',[RefCatController::class, 'show']);
+Route::get('cab_user/{id}',[RefCatController::class, 'show']);
 Route::post('cab_user',[CabCustomerController::class, 'store']);
-// Route::put('ref_cat/{id}',[RefCatController::class, 'update']);
-// Route::delete('ref_cat/{id}',[RefCatController::class, 'destroy']);
+Route::put('cab_user/{id}',[RefCatController::class, 'update']);
+Route::delete('cab_usert/{id}',[RefCatController::class, 'destroy']);
