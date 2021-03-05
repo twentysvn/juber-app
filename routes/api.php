@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CabCustomerController;
+use App\Http\Controllers\MerchantLayananController;
 use App\Http\Controllers\uploadController;
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +25,7 @@ Route::get('cab_user/{id}',[CabCustomerController::class, 'show']);
 Route::post('cab_user',[CabCustomerController::class, 'store']);
 Route::put('cab_user/{id}',[CabCustomerController::class, 'update']);
 Route::delete('cab_usert/{id}',[CabCustomerController::class, 'destroy']);
+
+Route::get('merchant_layanan',[MerchantLayananController::class, 'index']);
 
 Route::post('upload',[uploadController::class, 'store']);

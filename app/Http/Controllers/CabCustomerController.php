@@ -109,6 +109,7 @@ class CabCustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
         try {
             $req = ["nama"=>$request->nama,"phone"=>$request->phone,"idrs"=>$request->idrs,"picture"=>$request->picture,"token"=>$request->token];
             $result = cab_customer::findOrFail($id)->update($req);
