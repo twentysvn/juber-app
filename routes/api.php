@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CabCustomerController;
 use App\Http\Controllers\MerchantLayananController;
+use App\Http\Controllers\VoucherMerchantController;
 use App\Http\Controllers\uploadController;
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,9 @@ Route::put('cab_user/{id}',[CabCustomerController::class, 'update']);
 Route::delete('cab_user/{id}',[CabCustomerController::class, 'destroy']);
 
 Route::get('merchant_layanan',[MerchantLayananController::class, 'index']);
+
+
+Route::get('voucher',[VoucherMerchantController::class, 'index']);
+
 
 Route::post('upload',[uploadController::class, 'store']);
