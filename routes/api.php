@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CabCustomerController;
+use App\Http\Controllers\uploadController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,3 +24,5 @@ Route::get('cab_user/{id}',[RefCatController::class, 'show']);
 Route::post('cab_user',[CabCustomerController::class, 'store']);
 Route::put('cab_user/{id}',[RefCatController::class, 'update']);
 Route::delete('cab_usert/{id}',[RefCatController::class, 'destroy']);
+
+Route::post('upload',[uploadController::class, 'store']);
