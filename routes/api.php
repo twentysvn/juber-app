@@ -33,5 +33,14 @@ Route::get('merchant_layanan',[MerchantLayananController::class, 'index']);
 
 Route::get('voucher',[VoucherMerchantController::class, 'index']);
 
+//Driver
+Route::get('driver',[DriverController::class, 'index']);
+Route::get('driver/{id}',[DriverController::class, 'show']);
+Route::get('driver/idrs/{idrs}',[DriverController::class, 'getByIdrs']);
+Route::post('driver',[DriverController::class, 'store']);
+Route::put('driver/{id}',[DriverController::class, 'update']);
+Route::put('driver/updateStatus/{id}',[DriverController::class, 'updateDriverStatus']);
+Route::delete('driver/{id}',[DriverController::class, 'destroy']);
+
 
 Route::post('upload',[uploadController::class, 'store']);
