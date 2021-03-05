@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class cab_customer extends Model
 {
-    use HasFactory;
+    protected $table = 'cab_customers';
+    protected $guarded = [];
 }

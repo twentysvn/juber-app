@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class CabCustomerController extends Controller
 {
+    public $data;
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +15,19 @@ class CabCustomerController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $result = cab_customer::all();
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil fetch cab_customer";
+            $data['result'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['result'] = [];
+        }
+        return $data;
     }
 
     /**
@@ -35,7 +48,21 @@ class CabCustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        try {
+            $req = ["nama"=>$request->nama,"phone"=>$request->phone,"idrs"=>$request->idrs,"picture"=>$request->picture,"token"=>$request->token];
+            $result = cab_customer::create($req);
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil tambah data";
+            $data['result'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['result'] = [];
+        }
+        return $data;
     }
 
     /**

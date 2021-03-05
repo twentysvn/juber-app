@@ -15,6 +15,11 @@ class CreateCabCustomersTable extends Migration
     {
         Schema::create('cab_customers', function (Blueprint $table) {
             $table->id();
+            $table->string('nama',200);
+            $table->string('phone',200);
+            $table->string('idrs',7)->unique();
+            $table->string('picture',255)->unique(); 
+            $table->string('token',255)->unique(); 
             $table->timestamps();
         });
     }
