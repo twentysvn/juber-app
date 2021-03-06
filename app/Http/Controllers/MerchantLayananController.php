@@ -133,19 +133,19 @@ class MerchantLayananController extends Controller
     public function update(Request $request, $id)
     {
         try {
-          $req = ["nama"=>$request->nama,"alamat"=>$request->alamat,"rating"=>$request->rating,"long"=>$request->long,"lat"=>$request->lat,"idrs"=>$request->idrs];
-          $result = merchant_layanan::findOrFail($id)->update($req);
-          $data['code'] = 200;
-          $data['success'] = true;
-          $data['message'] = "berhasil update data";
-          $data['data'] = $result;
-      } catch (\Throwable $th) {
-          $data['code'] = 500;
-          $data['success'] = false;
-          $data['message'] = $th->getMessage();
-          $data['data'] = [];
-      }
-      return $data;
+            $req = ["nama"=>$request->nama,"alamat"=>$request->alamat,"rating"=>$request->rating,"long"=>$request->long,"lat"=>$request->lat,"idrs"=>$request->idrs];
+            $result = merchant_layanan::findOrFail($id)->update($req);
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil update data";
+            $data['data'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['data'] = [];
+        }
+        return $data;
     }
 
     /**

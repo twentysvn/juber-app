@@ -22,6 +22,7 @@ use App\Http\Controllers\DriverController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 //cab customer
 Route::get('cab_user',[CabCustomerController::class, 'index']);
 Route::get('cab_user/{id}',[CabCustomerController::class, 'show']);
@@ -32,9 +33,11 @@ Route::delete('cab_user/{id}',[CabCustomerController::class, 'destroy']);
 
 //merchant layanan
 Route::get('merchant_layanan',[MerchantLayananController::class, 'index']);
+Route::get('merchant_layanan/{id}',[MerchantLayananController::class, 'show']);
+Route::get('merchant_layanan/idrs/{id}',[MerchantLayananController::class, 'getByIdrs']);
 Route::post('merchant_layanan',[MerchantLayananController::class, 'store']);
-
-
+Route::put('merchant_layanan/{id}',[MerchantLayananController::class, 'update']);
+Route::delete('merchant_layanan/{id}',[MerchantLayananController::class, 'destroy']);
 
 //voucher
 Route::get('voucher',[VoucherMerchantController::class, 'index']);
