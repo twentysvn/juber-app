@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator,Redirect,Response,File;
+use Illuminate\Support\Facades\Validator;
+
 
 class uploadController extends Controller
 {
@@ -35,41 +36,42 @@ class uploadController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $validator = Validator::make($request->all(), 
-        [ 
-        'file' => 'required|mimes:png,jpg,webp,jpeg|max:10072',
-        ]);   
 
-        if ($validator->fails()) {          
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'file' => 'required|mimes:png,jpg,webp,jpeg|max:10072',
+            ]
+        );
+
+        if ($validator->fails()) {
             // return response()->json(['error'=>$validator->errors()], 401);       
             return response()->json([
                 "success" => false,
-                "code"=>500,
+                "code" => 500,
                 "message" => $validator->errors()->first(),
                 "file" => ''
-            ]);                 
-        }  
+            ]);
+        }
 
 
         if ($files = $request->file('file')) {
-            
+
             //store file into document folder
-            $file = $request->file->store('Images');
-            $file = substr($file,7);
+            $file = $request->file->store('images');
+            $file = substr($file, 7);
             //store your file into database
             // $document = new ();
             // $document->title = $file;
             // $document->user_id = $request->user_id;
             // $document->save();
-            
+
             return response()->json([
                 "success" => true,
-                "code"=>200,
+                "code" => 200,
                 "message" => "File successfully uploaded",
-                "file" => config('app.url')."/storage/".$file
+                "file" => config('app.url') . "/storage/" . $file
             ]);
-
         }
     }
 
