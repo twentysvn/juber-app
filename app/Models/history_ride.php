@@ -9,4 +9,8 @@ class history_ride extends Model
 {
     protected $table = 'history_ride';
     protected $guarded = [];
+    public function driver()
+    {
+        return $this->belongsTo(driver::class, "driver_id", "id");
+    }
 }

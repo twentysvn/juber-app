@@ -8,6 +8,8 @@ use App\Http\Controllers\VoucherMerchantController;
 use App\Http\Controllers\uploadController;
 use App\Http\Controllers\HistoryRideController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\JenisLayananController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,45 +26,54 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //cab customer
-Route::get('cab_user',[CabCustomerController::class, 'index']);
-Route::get('cab_user/{id}',[CabCustomerController::class, 'show']);
-Route::get('cab_user/idrs/{idrs}',[CabCustomerController::class, 'getByIdrs']);
-Route::post('cab_user',[CabCustomerController::class, 'store']);
-Route::put('cab_user/{id}',[CabCustomerController::class, 'update']);
-Route::delete('cab_user/{id}',[CabCustomerController::class, 'destroy']);
+Route::get('cab_user', [CabCustomerController::class, 'index']);
+Route::get('cab_user/{id}', [CabCustomerController::class, 'show']);
+Route::get('cab_user/idrs/{idrs}', [CabCustomerController::class, 'getByIdrs']);
+Route::post('cab_user', [CabCustomerController::class, 'store']);
+Route::put('cab_user/{id}', [CabCustomerController::class, 'update']);
+Route::delete('cab_user/{id}', [CabCustomerController::class, 'destroy']);
 
-//merchant layanan
-Route::get('merchant_layanan',[MerchantLayananController::class, 'index']);
-Route::get('merchant_layanan/{id}',[MerchantLayananController::class, 'show']);
-Route::get('merchant_layanan/idrs/{id}',[MerchantLayananController::class, 'getByIdrs']);
-Route::post('merchant_layanan',[MerchantLayananController::class, 'store']);
-Route::put('merchant_layanan/{id}',[MerchantLayananController::class, 'update']);
-Route::delete('merchant_layanan/{id}',[MerchantLayananController::class, 'destroy']);
+//merchant
+Route::get('merchant_layanan', [MerchantLayananController::class, 'index']);
+Route::get('merchant_layanan/{id}', [MerchantLayananController::class, 'show']);
+Route::get('merchant_layanan/idrs/{id}', [MerchantLayananController::class, 'getByIdrs']);
+Route::post('merchant_layanan', [MerchantLayananController::class, 'store']);
+Route::put('merchant_layanan/{id}', [MerchantLayananController::class, 'update']);
+Route::delete('merchant_layanan/{id}', [MerchantLayananController::class, 'destroy']);
+
+// jenis layanan
+Route::get('layanan', [JenisLayananController::class, 'index']);
+Route::get('layanan/{id}', [JenisLayananController::class, 'show']);
+Route::get('layanan/mcid/{id}', [JenisLayananController::class, 'showByMcId']);
+Route::post('layanan', [JenisLayananController::class, 'store']);
+Route::delete('layanan/{id}', [JenisLayananController::class, 'destroy']);
+Route::put('layanan/{id}', [JenisLayananController::class, 'update']);
 
 //voucher
-Route::get('voucher',[VoucherMerchantController::class, 'index']);
-Route::get('voucher/mcid/{id}',[VoucherMerchantController::class, 'getByMcid']);
-Route::get('voucher/{id}',[VoucherMerchantController::class, 'show']);
-Route::post('voucher',[VoucherMerchantController::class, 'store']);
-Route::put('voucher/{id}',[VoucherMerchantController::class, 'update']);
-Route::delete('voucher/{id}',[VoucherMerchantController::class, 'destroy']);
+Route::get('voucher', [VoucherMerchantController::class, 'index']);
+Route::get('voucher/mcid/{id}', [VoucherMerchantController::class, 'getByMcid']);
+Route::get('voucher/{id}', [VoucherMerchantController::class, 'show']);
+Route::post('voucher', [VoucherMerchantController::class, 'store']);
+Route::put('voucher/{id}', [VoucherMerchantController::class, 'update']);
+Route::delete('voucher/{id}', [VoucherMerchantController::class, 'destroy']);
 
 //history ride
-Route::get('history_ride',[HistoryRideController::class, 'index']);
-Route::get('history_ride/idrs/{id}',[HistoryRideController::class, 'getByIdrs']);
-Route::post('history_ride',[HistoryRideController::class, 'store']);
-Route::put('history_ride/{id}',[HistoryRideController::class, 'update']);
-Route::delete('history_ride/{id}',[HistoryRideController::class, 'destroy']);
-Route::get('history_ride/{id}',[HistoryRideController::class, 'show']);
+Route::get('history_ride', [HistoryRideController::class, 'index']);
+Route::get('history_ride/idrs/{id}', [HistoryRideController::class, 'getByIdrs']);
+Route::post('history_ride', [HistoryRideController::class, 'store']);
+Route::put('history_ride/{id}', [HistoryRideController::class, 'update']);
+Route::delete('history_ride/{id}', [HistoryRideController::class, 'destroy']);
+Route::get('history_ride/{id}', [HistoryRideController::class, 'show']);
 
 //Driver
-Route::get('driver',[DriverController::class, 'index']);
-Route::get('driver/{id}',[DriverController::class, 'show']);
-Route::get('driver/idrs/{idrs}',[DriverController::class, 'getByIdrs']);
-Route::post('driver',[DriverController::class, 'store']);
-Route::put('driver/{id}',[DriverController::class, 'update']);
-Route::put('driver/updateStatus/{id}',[DriverController::class, 'updateDriverStatus']);
-Route::delete('driver/{id}',[DriverController::class, 'destroy']);
+Route::get('driver', [DriverController::class, 'index']);
+Route::get('driver/{id}', [DriverController::class, 'show']);
+Route::get('driver/idrs/{idrs}', [DriverController::class, 'getByIdrs']);
+Route::post('driver', [DriverController::class, 'store']);
+Route::put('driver/{id}', [DriverController::class, 'update']);
+Route::put('driver/updateStatus/{id}', [DriverController::class, 'updateDriverStatus']);
+Route::delete('driver/{id}', [DriverController::class, 'destroy']);
 
-//upload gambar
-Route::post('upload',[uploadController::class, 'store']);
+// gambar
+Route::post('image/upload', [uploadController::class, 'store']);
+Route::delete('image/delete', [uploadController::class, 'destroy']);

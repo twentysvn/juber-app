@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\history_ride;
+use App\Models\driver;
 use Illuminate\Http\Request;
 
 class HistoryRideController extends Controller
@@ -17,6 +18,9 @@ class HistoryRideController extends Controller
     {
         try {
             $result = history_ride::all();
+            foreach ($result as $key => $value) {
+                $result[$key]["driver"] = driver::find($value->id);
+            }
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil fetch data";
@@ -50,17 +54,18 @@ class HistoryRideController extends Controller
     {
         // return $request;
         try {
-            $req = ["idrs"=>$request->idrs,
-                    "driver_id"=>$request->driver_id,
-                    "cost"=>$request->cost,
-                    "payment_method"=>$request->payment_method,
-                    "ori_address"=>$request->ori_address,
-                    "ori_lat"=>$request->ori_lat,
-                    "ori_long"=>$request->ori_long,
-                    "des_address"=>$request->des_address,
-                    "des_lat"=>$request->des_lat,
-                    "des_long"=>$request->des_long,
-                    ];  
+            $req = [
+                "idrs" => $request->idrs,
+                "driver_id" => $request->driver_id,
+                "cost" => $request->cost,
+                "payment_method" => $request->payment_method,
+                "ori_address" => $request->ori_address,
+                "ori_lat" => $request->ori_lat,
+                "ori_long" => $request->ori_long,
+                "des_address" => $request->des_address,
+                "des_lat" => $request->des_lat,
+                "des_long" => $request->des_long,
+            ];
             $result = history_ride::create($req);
             $data['code'] = 200;
             $data['success'] = true;
@@ -101,7 +106,7 @@ class HistoryRideController extends Controller
     public function getByIdrs($id)
     {
         try {
-            $result = history_ride::where('idrs',$id)->get();
+            $result = history_ride::where('idrs', $id)->get();
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil fetch data";
@@ -136,17 +141,18 @@ class HistoryRideController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $req = ["idrs"=>$request->idrs,
-                    "driver_id"=>$request->driver_id,
-                    "cost"=>$request->cost,
-                    "payment_method"=>$request->payment_method,
-                    "ori_address"=>$request->ori_address,
-                    "ori_lat"=>$request->ori_lat,
-                    "ori_long"=>$request->ori_long,
-                    "des_address"=>$request->des_address,
-                    "des_lat"=>$request->des_lat,
-                    "des_long"=>$request->des_long,
-            ];  
+            $req = [
+                "idrs" => $request->idrs,
+                "driver_id" => $request->driver_id,
+                "cost" => $request->cost,
+                "payment_method" => $request->payment_method,
+                "ori_address" => $request->ori_address,
+                "ori_lat" => $request->ori_lat,
+                "ori_long" => $request->ori_long,
+                "des_address" => $request->des_address,
+                "des_lat" => $request->des_lat,
+                "des_long" => $request->des_long,
+            ];
             $result = history_ride::findOrFail($id)->create($req);
             $data['code'] = 200;
             $data['success'] = true;

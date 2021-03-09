@@ -9,4 +9,8 @@ class driver extends Model
 {
     protected $table = 'drivers_profile';
     protected $guarded = [];
+    public function history_ride()
+    {
+        return $this->hasOne(history_ride::class, "driver_id");
+    }
 }
