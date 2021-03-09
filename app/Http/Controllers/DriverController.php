@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\driver;
+use App\Models\documents;
 use Illuminate\Http\Request;
 
 class DriverController extends Controller
@@ -16,6 +17,9 @@ class DriverController extends Controller
     {
         try {
             $result = driver::all();
+            foreach ($result as $key => $value) {
+                $result[$key]["documents"] = driver::find($value->id)->documents;
+            }
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil fetch data";
@@ -49,16 +53,34 @@ class DriverController extends Controller
     {
         try {
             $req = ["idrs"=>$request->idrs,
-                    "sim"=>$request->sim,
-                    "nama"=>$request->nama,
+                    "name"=>$request->name,
                     "phone"=>$request->phone,
+                    "vhc_type"=>$request->vhc_type,
                     "vhc_brand"=>$request->vhc_brand,
                     "vhc_model"=>$request->vhc_model,
                     "vhc_plat"=>$request->vhc_plat,
                     "picture"=>$request->picture,
-                    "document"=>$request->document,
-                    ];  
-            $result = driver::create($req);
+                     "token"=>$request->token
+                    ];
+            $driverCheck = driver::where("idrs",$request->idrs)->get();
+            if(count($driverCheck)>0){
+                $id = $driverCheck[0]["id"];
+                $result = $driverCheck[0];
+                documents::where("driver_id",$id)->delete();
+            }else{
+             $result = driver::create($req);
+             $id = $result["id"];
+            }
+            $documents = [];
+            foreach ($request->documents as $key => $value) {
+                $docs = ["name"=>$value["name"],
+                        "picture"=>$value["picture"],
+                        "document_id"=>$value["document_id"],
+                        "driver_id"=>$id];
+                documents::create($docs);
+                array_push($documents,$docs);
+            }
+            $result["documents"] = $documents;
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil tambah data";
@@ -98,6 +120,9 @@ class DriverController extends Controller
     {
         try {
             $result = driver::where('idrs',$id)->get();
+            if(count($result)>0){
+                $result[0]["documents"] = driver::find($result[0]->id)->documents;
+            }
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil fetch data";
@@ -159,17 +184,34 @@ class DriverController extends Controller
      */
     public function update(Request $request, $id)
     {
+        function isExist($name,$req,$request){
+            if($request->has($name)){
+                $req[$name] = $request[$name];
+            }
+            return $req;
+        }
         try {
-            $req = ["idrs"=>$request->idrs,
-                    "sim"=>$request->sim,
-                    "nama"=>$request->nama,
-                    "phone"=>$request->phone,
-                    "vhc_brand"=>$request->vhc_brand,
-                    "vhc_model"=>$request->vhc_model,
-                    "picture"=>$request->picture,
-                    "document"=>$request->document,
-                    ];  
-            $result = driver::findOrFail($id)->create($req);
+            $req = [];
+            $req = isExist("idrs",$req,$request);
+            $req = isExist("name",$req,$request);
+            $req = isExist("phone",$req,$request);
+            $req = isExist("vhc_type",$req,$request);
+            $req = isExist("vhc_brand",$req,$request);
+            $req = isExist("vhc_model",$req,$request);
+            $req = isExist("vhc_plat",$req,$request);
+            $req = isExist("picture",$req,$request);
+            $req = isExist("token",$req,$request); 
+            driver::findOrFail($id)->update($req);
+            if($request->has("documents")){
+                foreach ($request->documents as $key => $value) {
+                    $docs = ["name"=>$value["name"],
+                            "picture"=>$value["picture"],
+                            "document_id"=>$value["document_id"]];
+                    documents::where("name",$value["name"])->where("driver_id",$id)->update($docs);
+                }
+            }
+            $result = driver::find($id);
+            $result["documents"] = driver::find($id)->documents;
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil update data";
@@ -189,10 +231,20 @@ class DriverController extends Controller
      * @param  \App\Models\driver  $driver
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         try {
-            $result = driver::findOrFail($id)->delete();
+            $driver = driver::findOrFail($id);
+            $driverPicture = $driver["picture"];
+            $documents = $driver->documents;
+            $result = $driver->delete();
+            \App::call('App\Http\Controllers\uploadController@destroy',
+            ['id'=>$driverPicture]);
+            foreach ($documents as $key => $value) {
+                $picture = $value["picture"];
+                \App::call('App\Http\Controllers\uploadController@destroy',
+                ['id'=>$picture]);
+            }
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil hapus data";

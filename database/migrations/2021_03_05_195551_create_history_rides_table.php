@@ -13,18 +13,19 @@ class CreateHistoryRidesTable extends Migration
      */
     public function up()
     {
-        Schema::create('history_ride', function (Blueprint $table) {
+        Schema::create('rides', function (Blueprint $table) {
             $table->id();
             $table->string("idrs",200);
-            $table->foreignId("driver_id")->constrained("drivers_profile");
             $table->integer("cost");
+            $table->foreignId("driver_id")->constrained("drivers");
             $table->string("payment_method",200);
             $table->string("ori_address", 255);
             $table->string("ori_lat",200)->nullable();
             $table->string("ori_long",200)->nullable();
             $table->string("des_address", 255);
             $table->string("des_lat",200)->nullable();
-            $table->string("des_long",200)->nullable();            
+            $table->string("des_long",200)->nullable();
+            $table->string("status",200);            
             $table->timestamps();
         });
     }
