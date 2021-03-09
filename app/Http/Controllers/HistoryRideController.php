@@ -52,7 +52,6 @@ class HistoryRideController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
         try {
             $req = [
                 "idrs" => $request->idrs,
@@ -65,6 +64,7 @@ class HistoryRideController extends Controller
                 "des_address" => $request->des_address,
                 "des_lat" => $request->des_lat,
                 "des_long" => $request->des_long,
+                "status" => $request->status
             ];
             $result = history_ride::create($req);
             $data['code'] = 200;

@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Hasone;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class history_ride extends Model
 {
-    protected $table = 'history_ride';
+    protected $table = 'rides';
     protected $guarded = [];
     public function driver(): BelongsTo
     {
