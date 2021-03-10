@@ -9,6 +9,7 @@ use App\Http\Controllers\uploadController;
 use App\Http\Controllers\HistoryRideController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\JenisLayananController;
+use App\Http\Controllers\WalletController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,12 @@ Route::post('driver', [DriverController::class, 'store']);
 Route::put('driver/{id}', [DriverController::class, 'update']);
 Route::put('driver/updateStatus/{id}', [DriverController::class, 'updateDriverStatus']);
 Route::delete('driver/{id}', [DriverController::class, 'destroy']);
+
+// wallet
+Route::get('wallet', [WalletController::class, 'index']);
+Route::get('wallet/{id}', [WalletController::class, 'show']);
+Route::get('wallet/idrs/{id}', [WalletController::class, 'showByIdrs']);
+Route::post('wallet', [WalletController::class, 'store']);
 
 // gambar
 Route::post('image/upload', [uploadController::class, 'store']);

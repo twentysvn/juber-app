@@ -17,10 +17,7 @@ class HistoryRideController extends Controller
     public function index()
     {
         try {
-            $result = history_ride::all();
-            foreach ($result as $key => $value) {
-                $result[$key]["driver"] = driver::find($value->id);
-            }
+            $result = history_ride::with('driver')->get();
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil fetch data";
