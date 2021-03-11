@@ -45,7 +45,6 @@ class uploadController extends Controller
         );
 
         if ($validator->fails()) {
-            // return response()->json(['error'=>$validator->errors()], 401);       
             return response()->json([
                 "success" => false,
                 "code" => 500,
@@ -54,18 +53,9 @@ class uploadController extends Controller
             ]);
         }
 
-
-        if ($files = $request->file('file')) {
-
-            //store file into document folder
+        if ($request->file('file')) {
             $file = $request->file->store('images');
             $file = substr($file, 7);
-            //store your file into database
-            // $document = new ();
-            // $document->title = $file;
-            // $document->user_id = $request->user_id;
-            // $document->save();
-
             return response()->json([
                 "success" => true,
                 "code" => 200,
@@ -118,45 +108,45 @@ class uploadController extends Controller
     public function destroy(Request $request)
     {
         try {
-        $path = $request->image;
-        $hostLength = strlen("http://192.168.3.8:1234/storage/");
-        $imageFile =  substr($path, $hostLength, strlen($path));
-        $Publicpath = public_path();
-        $Publicpath = substr_replace($Publicpath, "", -7);
-        $pathImage = $Publicpath . '/storage/app/images/' . $imageFile;
-        unlink($pathImage);
-        $data['code'] = 200;
-        $data['success'] = true;
-        $data['message'] = "berhasil hapus image";
-        return $data;
+            $path = $request->image;
+            $hostLength = strlen("http://192.168.3.8:1234/storage/");
+            $imageFile =  substr($path, $hostLength, strlen($path));
+            $Publicpath = public_path();
+            $Publicpath = substr_replace($Publicpath, "", -7);
+            $pathImage = $Publicpath . '/storage/app/images/' . $imageFile;
+            unlink($pathImage);
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil hapus image";
+            $data['data'] = $path;
         } catch (\Throwable $th) {
             $data['code'] = 500;
-            $data['success'] = true;
+            $data['success'] = false;
             $data['message'] = $th->getMessage();
-            return $data;
         }
+
+        return $data;
     }
 
 
     public function destroyImage($id)
     {
         try {
-        $path = $id;
-        $hostLength = strlen("http://192.168.3.8:1234/storage/");
-        $imageFile =  substr($path, $hostLength, strlen($path));
-        $Publicpath = public_path();
-        $Publicpath = substr_replace($Publicpath, "", -7);
-        $pathImage = $Publicpath . '/storage/app/images/' . $imageFile;
-        unlink($pathImage);
-        $data['code'] = 200;
-        $data['success'] = true;
-        $data['message'] = "berhasil hapus image";
-        return $data;
+            $path = $id;
+            $hostLength = strlen("http://192.168.3.8:1234/storage/");
+            $imageFile =  substr($path, $hostLength, strlen($path));
+            $Publicpath = public_path();
+            $Publicpath = substr_replace($Publicpath, "", -7);
+            $pathImage = $Publicpath . '/storage/app/images/' . $imageFile;
+            unlink($pathImage);
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil hapus image";
         } catch (\Throwable $th) {
             $data['code'] = 500;
-            $data['success'] = true;
+            $data['success'] = false;
             $data['message'] = $th->getMessage();
-            return $data;
         }
+        return $data;
     }
 }
