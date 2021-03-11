@@ -244,13 +244,13 @@ class DriverController extends Controller
             $documents = $driver->documents;
             $result = $driver->delete();
             App::call(
-                'App\Http\Controllers\uploadController@destroy',
+                'App\Http\Controllers\uploadController@destroyImage',
                 ['id' => $driverPicture]
             );
             foreach ($documents as $key => $value) {
                 $picture = $value["picture"];
                 App::call(
-                    'App\Http\Controllers\uploadController@destroy',
+                    'App\Http\Controllers\uploadController@destroyImage',
                     ['id' => $picture]
                 );
             }

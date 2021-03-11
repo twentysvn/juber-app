@@ -115,7 +115,30 @@ class uploadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request)
+    {
+        try {
+        $path = $request->image;
+        $hostLength = strlen("http://192.168.3.8:1234/storage/");
+        $imageFile =  substr($path, $hostLength, strlen($path));
+        $Publicpath = public_path();
+        $Publicpath = substr_replace($Publicpath, "", -7);
+        $pathImage = $Publicpath . '/storage/app/images/' . $imageFile;
+        unlink($pathImage);
+        $data['code'] = 200;
+        $data['success'] = true;
+        $data['message'] = "berhasil hapus image";
+        return $data;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = true;
+            $data['message'] = $th->getMessage();
+            return $data;
+        }
+    }
+
+
+    public function destroyImage($id)
     {
         try {
         $path = $id;

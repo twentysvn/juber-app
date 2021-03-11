@@ -84,3 +84,4 @@ Route::post('wallet', [WalletController::class, 'store']);
 // gambar
 Route::post('image/upload', [uploadController::class, 'store']);
 Route::delete('image/delete', [uploadController::class, 'destroy']);
+// Route::delete('image/delete/{id}', [uploadController::class, 'destroy']);
