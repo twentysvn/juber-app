@@ -10,6 +10,7 @@ use App\Http\Controllers\HistoryRideController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\JenisLayananController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\ProfilesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,3 +86,11 @@ Route::post('wallet', [WalletController::class, 'store']);
 Route::post('image/upload', [uploadController::class, 'store']);
 Route::delete('image/delete', [uploadController::class, 'destroy']);
 // Route::delete('image/delete/{id}', [uploadController::class, 'destroy']);
+
+
+//profile
+Route::get('profile',[ProfilesController::class, 'index']);
+Route::get('profile/{id}',[ProfilesController::class, 'show']);
+Route::post('profile',[ProfilesController::class, 'store']);
+Route::put('profile/{id}',[ProfilesController::class, 'update']);
+Route::delete('profile/{id}',[ProfilesController::class, 'destroy']);
