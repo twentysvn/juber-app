@@ -35,6 +35,21 @@ class DriverController extends Controller
         }
         return $data;
     }
+    public function getDriver(){
+        try {
+            $result = driver::where('lat','!=','null')->where('lat','!=','0')->get();
+            $data['code'] = 200;
+            $data['success'] = true;
+            $data['message'] = "berhasil fetch data";
+            $data['data'] = $result;
+        } catch (\Throwable $th) {
+            $data['code'] = 500;
+            $data['success'] = false;
+            $data['message'] = $th->getMessage();
+            $data['data'] = [];
+        }
+        return $data;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -153,17 +168,13 @@ class DriverController extends Controller
     public function updateDriverStatus(Request $request, $id)
     {
         try {
-            if ($request->has('status')) {
-                $req = [
-                    "status" => $request->status,
-                ];
-            } else {
+      
                 $req = [
                     "lat" => $request->lat,
                     "long" => $request->long,
                 ];
-            }
-            $result = driver::findOrFail($id)->create($req);
+           
+            $result = driver::findOrFail($id)->update($req);
             $data['code'] = 200;
             $data['success'] = true;
             $data['message'] = "berhasil update data";
@@ -229,6 +240,7 @@ class DriverController extends Controller
         }
         return $data;
     }
+
 
     /**
      * Remove the specified resource from storage.

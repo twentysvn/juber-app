@@ -67,7 +67,7 @@ Route::delete('history_ride/{id}', [HistoryRideController::class, 'destroy']);
 Route::get('history_ride/{id}', [HistoryRideController::class, 'show']);
 
 //Driver
-Route::get('driver', [DriverController::class, 'index']);
+Route::get('driver', [DriverController::class, 'getDriver']);
 Route::get('driver/{id}', [DriverController::class, 'show']);
 Route::get('driver/idrs/{idrs}', [DriverController::class, 'getByIdrs']);
 Route::post('driver', [DriverController::class, 'store']);

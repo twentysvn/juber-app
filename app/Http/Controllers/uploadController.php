@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-
 class uploadController extends Controller
 {
     /**
@@ -109,7 +108,8 @@ class uploadController extends Controller
     {
         try {
             $path = $request->image;
-            $hostLength = strlen("http://192.168.3.8:1234/storage/");
+            $APP_URL = config('app.url');
+            $hostLength = strlen($APP_URL."/storage/");
             $imageFile =  substr($path, $hostLength, strlen($path));
             $Publicpath = public_path();
             $Publicpath = substr_replace($Publicpath, "", -7);
