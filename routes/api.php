@@ -1,7 +1,9 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlamatMerchantController;
 use App\Http\Controllers\CabCustomerController;
 use App\Http\Controllers\MerchantLayananController;
 use App\Http\Controllers\VoucherMerchantController;
@@ -89,8 +91,16 @@ Route::delete('image/delete', [uploadController::class, 'destroy']);
 
 
 //profile
-Route::get('profile',[ProfilesController::class, 'index']);
-Route::get('profile/{id}',[ProfilesController::class, 'show']);
-Route::post('profile',[ProfilesController::class, 'store']);
-Route::put('profile/{id}',[ProfilesController::class, 'update']);
-Route::delete('profile/{id}',[ProfilesController::class, 'destroy']);
+Route::get('profile', [ProfilesController::class, 'index']);
+Route::get('profile/{id}', [ProfilesController::class, 'show']);
+Route::post('profile', [ProfilesController::class, 'store']);
+Route::put('profile/{id}', [ProfilesController::class, 'update']);
+Route::delete('profile/{id}', [ProfilesController::class, 'destroy']);
+
+//alamat
+Route::get('alamat', [AlamatMerchantController::class, 'index']);
+Route::get('alamat/{id}', [AlamatMerchantController::class, 'show']);
+Route::get('alamat/idrs/{id}', [AlamatMerchantController::class, 'getByMcid']);
+Route::post('alamat', [AlamatMerchantController::class, 'store']);
+Route::put('alamat/{id}', [AlamatMerchantController::class, 'update']);
+Route::delete('alamat/{id}', [AlamatMerchantController::class, 'destroy']);

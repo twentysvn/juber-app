@@ -15,13 +15,13 @@ class CreateProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string("name",250);
-            $table->string("idrs",7)->unique();
-            $table->enum("gender",[1,0])->default(1);
-            $table->string("profile_picture",250);
-            $table->string("cover_picture",250);
-            $table->string("social_media",250);
-            $table->string("token",250)->nullable();
+            $table->string("name", 250);
+            $table->string("idrs", 7)->unique();
+            $table->enum("gender", [1, 0])->default(1);
+            $table->string("profile_picture", 250);
+            $table->string("cover_picture", 250)->nullable();
+            $table->string("social_media", 250)->nullable();
+            $table->string("token", 250)->nullable();
             $table->timestamps();
         });
     }
