@@ -20,7 +20,6 @@ class BankController extends Controller
             $data["code"] = 200;
             $data["message"] = "berhasil";
             $data["data"] = $result;
-        
         } catch (\Throwable $th) {
             $data["data"] = [];
             $data["success"] = false;
@@ -49,29 +48,28 @@ class BankController extends Controller
     public function store(Request $request)
     {
         $dataTable = [];
-        function checkifexist($column,$request_name,$request,$dataTable){
-            if($request->has($request_name)){
-               $databaru = addData($column,$request_name,$request,$dataTable);
-               return $databaru;
-            }
-            else{
+        function checkifexist($column, $request_name, $request, $dataTable)
+        {
+            if ($request->has($request_name)) {
+                $databaru = addData($column, $request_name, $request, $dataTable);
+                return $databaru;
+            } else {
                 return $dataTable;
             }
         }
-        function addData($column,$request_name,$request,$dataTable){
+        function addData($column, $request_name, $request, $dataTable)
+        {
             $dataTable[$column] = $request[$request_name];
             return $dataTable;
         }
-        $dataTable = addData("name","name",$request,$dataTable);
-        $dataTable = checkifexist("bank_code","bank_code",$request,$dataTable);
+        $dataTable = addData("name", "name", $request, $dataTable);
+        $dataTable = checkifexist("bank_code", "bank_code", $request, $dataTable);
         try {
-           
             $result = bank::create($dataTable);
             $data["success"] = true;
             $data["code"] = 200;
             $data["message"] = "berhasil";
             $data["data"] = $result;
-        
         } catch (\Throwable $th) {
             $data["data"] = [];
             $data["success"] = false;
@@ -90,13 +88,12 @@ class BankController extends Controller
     public function show($id)
     {
         try {
-           
+
             $result = bank::findOrFail($id);
             $data["success"] = true;
             $data["code"] = 200;
             $data["message"] = "berhasil";
             $data["data"] = $result;
-        
         } catch (\Throwable $th) {
             $data["data"] = [];
             $data["success"] = false;
@@ -104,7 +101,6 @@ class BankController extends Controller
             $data["message"] = $th->getMessage();
         }
         return $data;
-    
     }
 
     /**
@@ -128,29 +124,29 @@ class BankController extends Controller
     public function update(Request $request, $id)
     {
         $dataTable = [];
-        function checkifexist($column,$request_name,$request,$dataTable){
-            if($request->has($request_name)){
-               $databaru = addData($column,$request_name,$request,$dataTable);
-               return $databaru;
-            }
-            else{
+        function checkifexist($column, $request_name, $request, $dataTable)
+        {
+            if ($request->has($request_name)) {
+                $databaru = addData($column, $request_name, $request, $dataTable);
+                return $databaru;
+            } else {
                 return $dataTable;
             }
         }
-        function addData($column,$request_name,$request,$dataTable){
+        function addData($column, $request_name, $request, $dataTable)
+        {
             $dataTable[$column] = $request[$request_name];
             return $dataTable;
         }
-        $dataTable = checkifexist("name","name",$request,$dataTable);
-        $dataTable = checkifexist("bank_code","bank_code",$request,$dataTable);
+        $dataTable = checkifexist("name", "name", $request, $dataTable);
+        $dataTable = checkifexist("bank_code", "bank_code", $request, $dataTable);
         try {
-           
+
             $result = bank::findOrFail($id)->update($dataTable);
             $data["success"] = true;
             $data["code"] = 200;
             $data["message"] = "berhasil";
             $data["data"] = $result;
-        
         } catch (\Throwable $th) {
             $data["data"] = [];
             $data["success"] = false;
@@ -169,13 +165,12 @@ class BankController extends Controller
     public function destroy($id)
     {
         try {
-           
+
             $result = bank::findOrFail($id)->delete();
             $data["success"] = true;
             $data["code"] = 200;
             $data["message"] = "berhasil";
             $data["data"] = $result;
-        
         } catch (\Throwable $th) {
             $data["data"] = [];
             $data["success"] = false;

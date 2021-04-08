@@ -17,10 +17,12 @@ class CreateProfilesTable extends Migration
             $table->id();
             $table->string("name", 250);
             $table->string("idrs", 7)->unique();
-            $table->enum("gender", [1, 0])->default(1);
+            $table->enum("gender", [0, 1, 2])->default(0);
+            $table->string("birthdate", 250)->nullable();
             $table->string("profile_picture", 250);
             $table->string("cover_picture", 250)->nullable();
             $table->string("social_media", 250)->nullable();
+            $table->string("pin", 6);
             $table->string("token", 250)->nullable();
             $table->timestamps();
         });
