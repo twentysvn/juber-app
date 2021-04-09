@@ -23,6 +23,7 @@ class CreateProfilesTable extends Migration
             $table->string("cover_picture", 250)->nullable();
             $table->string("social_media", 250)->nullable();
             $table->string("pin", 6);
+            $table->string("phone", 13);
             $table->string("token", 250)->nullable();
             $table->timestamps();
         });

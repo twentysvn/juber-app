@@ -75,6 +75,7 @@ class ProfilesController extends Controller
             $dataTable = addData("idrs", "idrs", $request, $dataTable);
             $dataTable = addData("gender", "gender", $request, $dataTable);
             $dataTable = addData("pin", "pin", $request, $dataTable);
+            $dataTable = addData("phone", "phone", $request, $dataTable);
             $dataTable = addData("birthdate", "birthdate", $request, $dataTable);
             $dataTable = checkifexist("profile_picture", "profile_picture", $request, $dataTable);
             $dataTable = checkifexist("cover_picture", "cover_picture", $request, $dataTable);
@@ -156,12 +157,13 @@ class ProfilesController extends Controller
             $dataTable = checkifexist("idrs", "idrs", $request, $dataTable);
             $dataTable = checkifexist("gender", "gender", $request, $dataTable);
             $dataTable = checkifexist("pin", "pin", $request, $dataTable);
+            $dataTable = addData("phone", "phone", $request, $dataTable);
             $dataTable = checkifexist("birthdate", "birthdate", $request, $dataTable);
             $dataTable = checkifexist("profile_picture", "profile_picture", $request, $dataTable);
             $dataTable = checkifexist("cover_picture", "cover_picture", $request, $dataTable);
             $dataTable = checkifexist("social_media", "social_media", $request, $dataTable);
 
-            $items = profiles::findOrFail($id)->update($dataTable);
+            $items = profiles::where('idrs', $id)->get()->first()->update($dataTable);
             $data["success"] = true;
             $data["code"] = 202;
             $data["message"] = "berhasil";
