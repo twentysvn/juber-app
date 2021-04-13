@@ -100,6 +100,7 @@ Route::delete('profile/{id}', [ProfilesController::class, 'destroy']);
 
 //profile
 Route::get('product', [ProductController::class, 'index']);
+Route::post('product/search', [ProductController::class, 'getbyname']);
 Route::get('product/{id}', [ProductController::class, 'show']);
 Route::post('product', [ProductController::class, 'store']);
 Route::put('product/{id}', [ProductController::class, 'update']);

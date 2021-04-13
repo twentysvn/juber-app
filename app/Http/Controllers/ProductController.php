@@ -100,6 +100,26 @@ class ProductController extends Controller
         return $data;
     }
 
+    public function getbyname(Request $request)
+    {
+        $id = $request->idrs;
+        $search = $request->name;
+
+        try {
+            $result = product::where('idrs', $id)->where('name', 'LIKE', '%' . $search . '%')->get();
+            $data["success"] = true;
+            $data["code"] = 200;
+            $data["message"] = "berhasil";
+            $data["data"] = $result;
+        } catch (\Throwable $th) {
+            $data["data"] = [];
+            $data["success"] = false;
+            $data["code"] = 500;
+            $data["message"] = $th->getMessage();
+        }
+        return $data;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
