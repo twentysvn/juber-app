@@ -11,6 +11,7 @@ use App\Http\Controllers\uploadController;
 use App\Http\Controllers\HistoryRideController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\JenisLayananController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ProfilesController;
 
@@ -96,6 +97,13 @@ Route::get('profile/{id}', [ProfilesController::class, 'show']);
 Route::post('profile', [ProfilesController::class, 'store']);
 Route::put('profile/{id}', [ProfilesController::class, 'update']);
 Route::delete('profile/{id}', [ProfilesController::class, 'destroy']);
+
+//profile
+Route::get('product', [ProductController::class, 'index']);
+Route::get('product/{id}', [ProductController::class, 'show']);
+Route::post('product', [ProductController::class, 'store']);
+Route::put('product/{id}', [ProductController::class, 'update']);
+
 
 //alamat
 Route::get('alamat', [AlamatMerchantController::class, 'index']);
