@@ -71,7 +71,7 @@ class ProfilesController extends Controller
             return $dataTable;
         }
         try {
-            $dataTable = addData("name", "name", $request, $dataTable);
+            $dataTable = addData("shop_name", "name", $request, $dataTable);
             $dataTable = addData("idrs", "idrs", $request, $dataTable);
             $dataTable = addData("gender", "gender", $request, $dataTable);
             $dataTable = addData("pin", "pin", $request, $dataTable);
@@ -138,30 +138,19 @@ class ProfilesController extends Controller
     public function update(Request $request, $id)
     {
         $dataTable = [];
-        function checkifexist($column, $request_name, $request, $dataTable)
-        {
-            if ($request->has($request_name)) {
-                $databaru = addData($column, $request_name, $request, $dataTable);
-                return $databaru;
-            } else {
-                return $dataTable;
-            }
-        }
-        function addData($column, $request_name, $request, $dataTable)
-        {
-            $dataTable[$column] = $request[$request_name];
-            return $dataTable;
-        }
+
         try {
-            $dataTable = checkifexist("name", "name", $request, $dataTable);
+            $dataTable = checkifexist("shop_name", "name", $request, $dataTable);
             $dataTable = checkifexist("idrs", "idrs", $request, $dataTable);
             $dataTable = checkifexist("gender", "gender", $request, $dataTable);
             $dataTable = checkifexist("pin", "pin", $request, $dataTable);
-            $dataTable = addData("phone", "phone", $request, $dataTable);
+            $dataTable = checkifexist("phone", "phone", $request, $dataTable);
             $dataTable = checkifexist("birthdate", "birthdate", $request, $dataTable);
             $dataTable = checkifexist("profile_picture", "profile_picture", $request, $dataTable);
             $dataTable = checkifexist("cover_picture", "cover_picture", $request, $dataTable);
             $dataTable = checkifexist("social_media", "social_media", $request, $dataTable);
+
+            // return $dataTable;
 
             $items = profiles::where('idrs', $id)->get()->first()->update($dataTable);
             $data["success"] = true;
@@ -199,4 +188,19 @@ class ProfilesController extends Controller
         }
         return $data;
     }
+}
+
+function checkifexist($column, $request_name, $request, $dataTable)
+{
+    if ($request->has($request_name)) {
+        $databaru = addData($column, $request_name, $request, $dataTable);
+        return $databaru;
+    } else {
+        return $dataTable;
+    }
+}
+function addData($column, $request_name, $request, $dataTable)
+{
+    $dataTable[$column] = $request[$request_name];
+    return $dataTable;
 }
